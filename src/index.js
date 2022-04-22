@@ -5,10 +5,16 @@
 * @returns {string}
 */
 export const replaceZAndVFromString = (string) => {
-	string.toLowerCase();
-	let firstPos = string.indexOf('z');
-	let secondPos = string.indexOf('v');
-	return string.slice(0, firstPos) + '*' + string.slice(firstPos + 1, secondPos) + '*';
+	let result = '';
+	for ( let i = 0; i < string.length; i++) {
+		if ( string[i].toLowerCase() === 'z' || string[i].toLowerCase() === 'v' ) {
+			result += '*';
+		}
+		else {
+			result += string[i];
+		}
+	}
+	return result;
 };
 
 /**
@@ -48,9 +54,8 @@ export const truncate = (string, length) => {
 */
 export const quantityOfSymbols = (string, symbol) => {
 	let wordCounter = 0;
-	let newString = string.toLowerCase();
-	for (let i = 0; i < newString.length; i++) {
-		if ( newString[i] === symbol ) {
+	for (let i = 0; i < string.length; i++) {
+		if ( string[i].toLowerCase() === symbol.toLowerCase()) {
 			wordCounter++;
 		}
 	};
@@ -73,15 +78,16 @@ export const quantityOfSymbols = (string, symbol) => {
 * @returns {number}
 */
 export const quantityOfSymbolsWithIndexOf = (string, symbol) => {
+	string = string.toLowerCase();
+	symbol = symbol.toLowerCase();
 	let wordCounter = 0;
+	let position = string.indexOf(symbol);
 	while (true) {
-	   let newString = string.toLowerCase();
-		let position = newString.indexOf(symbol);
-		position = newString.indexOf(symbol, position++);
 		if (position === -1) {
 			break
 		};
+		position = string.indexOf(symbol, position + 1);
 		wordCounter++;
-		return wordCounter;
-};
+	};
+	return wordCounter;
 }
